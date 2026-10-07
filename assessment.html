@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{{row["title"]}}</title><link rel="stylesheet" href="/static/style.css"></head>
+<body><main class="detail"><a href="/">← الرجوع</a><h1>{{row["title"]}}</h1>
+<p><b>المادة:</b> {{row["subject"]}} {% if row["week"] %} | <b>{{row["week"]}}</b>{% endif %}</p>
+<p><a class="btn" href="{{row['url']}}" target="_blank">فتح المصدر الرسمي</a></p>
+{% if row["downloaded_path"] %}<p><a class="btn secondary" href="/files/{{row['downloaded_path'].split('/')[-1]}}" target="_blank">فتح الملف المحفوظ</a></p>{% endif %}
+<hr><h2>🧠 الحل</h2>
+{% if row["solution"] %}<pre>{{row["solution"]}}</pre>{% else %}<div class="empty">لم يتم الحل بعد.</div>{% endif %}
+{% if row["error"] %}<div class="flash err">{{row["error"]}}</div>{% endif %}
+<form method="post" action="/solve/{{row['id']}}"><button>🤖 حل/إعادة الحل الآن</button></form>
+<div class="warning">الحل مولد آليًا للمساعدة في المذاكرة، وليس إجابة رسمية صادرة عن الوزارة.</div>
+</main></body></html>

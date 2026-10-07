@@ -1,0 +1,8 @@
+Flask>=3.1
+requests>=2.32
+beautifulsoup4>=4.13
+APScheduler>=3.11
+openai>=1.0
+pypdf>=5.0
+python-docx>=1.1
+gunicorn>=23.0

@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>تقييمات أولى ثانوي — تامر</title><link rel="stylesheet" href="/static/style.css"></head>
+<body>
+<header><div><h1>📚 تقييمات أولى ثانوي</h1><p>تقييمات الوزارة + الحل التلقائي</p></div>
+<form method="post" action="/refresh"><button>🔄 فحص وحل الجديد</button></form></header>
+<main>
+{% with msgs=get_flashed_messages(with_categories=true) %}{% for c,m in msgs %}<div class="flash {{c}}">{{m}}</div>{% endfor %}{% endwith %}
+<form class="filters" method="get"><input name="q" value="{{q}}" placeholder="ابحث عن تقييم أو أسبوع...">
+<select name="subject"><option value="">كل المواد</option>{% for s in subjects %}<option {% if s==subject %}selected{% endif %}>{{s}}</option>{% endfor %}</select><button>بحث</button></form>
+<div class="status">⚙️ الفحص التلقائي يعمل كل فترة حسب إعدادات الخادم.</div>
+<section class="grid">
+{% for r in rows %}
+<article class="card"><span class="badge">{{r["status"]}}</span><h2>{{r["title"]}}</h2><p><b>المادة:</b> {{r["subject"] or "غير محدد"}} {% if r["week"] %} — {{r["week"]}}{% endif %}</p>
+<p>{% if r["solution"] %}✅ <b>محلول</b>{% elif r["status"]=="error" %}⚠️ يحتاج مراجعة{% else %}⏳ جاري المعالجة{% endif %}</p>
+<a class="btn" href="/assessment/{{r['id']}}">فتح التقييم</a></article>
+{% else %}<div class="empty">لم يتم اكتشاف تقييمات بعد. اضغط «فحص وحل الجديد».</div>{% endfor %}
+</section></main></body></html>
